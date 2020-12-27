@@ -3,6 +3,7 @@ class Solution:
         row_black_cnt = self.get_row_black_cnt_list(picture)
         col_black_cnt = self.get_col_black_cnt_list(picture)
         every_col_black_position = self.get_every_col_black_position(picture)
+        picture_str_list = [''.join(row) for row in picture]
 
         legal_cnt = 0
         for row_index in range(len(picture)):
@@ -11,7 +12,7 @@ class Solution:
             for col_index in range(len(picture[0])):
                 if col_black_cnt[col_index] != N:
                     continue
-                if self.is_col_black_position_equal_row(row_index, every_col_black_position[col_index], picture):
+                if self.is_col_black_position_equal_row(row_index, every_col_black_position[col_index], picture_str_list):
                     legal_cnt += 1
 
         return legal_cnt
@@ -42,9 +43,8 @@ class Solution:
             ret.append(position_list)
         return ret
 
-    def is_col_black_position_equal_row(self, row_index, col_positon_list, picture):
-        s = ''.join(picture[row_index])
+    def is_col_black_position_equal_row(self, row_index, col_positon_list, picture_str_list):
         for col_positon in col_positon_list:
-            if s != ''.join(picture[col_positon]):
+            if picture_str_list[row_index] != picture_str_list[col_positon]:
                 return False
         return True
